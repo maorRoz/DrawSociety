@@ -18,14 +18,15 @@ namespace DrawSocietyServer.Controllers
         {
             if (board == null)
             {
-
+                return RedirectToAction("index",new {board = "home"});
             }
-            return View();
+            return View(new User{Board = board});
         }
 
         //[HttpPost]
-        public ActionResult CreateShape(string color,object[] edges)
+        public ActionResult CreateShape(string color,string board,object[] edges)
         {
+
             return RedirectToAction("index");
         }
 

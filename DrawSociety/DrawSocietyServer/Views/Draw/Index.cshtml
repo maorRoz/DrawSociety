@@ -1,12 +1,11 @@
-﻿@model IEnumerable<DrawSocietyServer.Models.Shape>
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Lets Draw!</h2>
-<canvas id="draw"></canvas>
-<div id="app2"></div>
+<canvas id="draw" board="@Model.Board"></canvas>
+<div id="app2" ></div>
 
 
 @section scripts {

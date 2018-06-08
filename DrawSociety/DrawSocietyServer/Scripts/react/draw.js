@@ -42,6 +42,7 @@ class Drawer extends React.Component {
             axios.post('/Draw/CreateShape',
                 {
                     Color: props.color,
+                    Board: document.getElementById("draw").getAttribute("board"),
                     Edges: edgesString
         });
 
