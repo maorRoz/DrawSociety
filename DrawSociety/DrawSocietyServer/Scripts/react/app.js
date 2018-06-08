@@ -1,16 +1,10 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
-import Shape from './shapes'
+import Drawer from './draw'
 
 
-//const something = <Shape/>;
-ReactDOM.render((
-    <div>
-        <Shape name="rectangle" />
-        <Shape name="circle" />
-        <Shape name="triangle" />
-        <Shape name="line" />
-        <Shape name="elipse" />
-    </div>
-),
-    document.getElementById('root'))
+
+
+ReactDOM.render(
+    <Drawer color="#f44253"/>,
+    document.getElementById('app'))

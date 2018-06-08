@@ -129,6 +129,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\react\app.js" />
     <Content Include="Scripts\react\dist\bundle.js" />
+    <Content Include="Scripts\react\draw.js" />
     <Content Include="Scripts\react\shapes.js" />
     <Content Include="Scripts\react\webpack.config.js" />
     <Content Include="Web.config" />
