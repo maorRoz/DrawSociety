@@ -19,6 +19,10 @@
                         presets: ['babel-preset-env','babel-preset-react']
                     }
                 }
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-sprite-loader'
             }
         ]
     }

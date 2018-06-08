@@ -1,8 +1,16 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
+import Shape from './shapes'
 
-ReactDOM.render(
-    <h3>Hello,world!</h3>,
-    document.getElementById('root')
 
-    );
+//const something = <Shape/>;
+ReactDOM.render((
+    <div>
+        <Shape name="rectangle" />
+        <Shape name="circle" />
+        <Shape name="triangle" />
+        <Shape name="line" />
+        <Shape name="elipse" />
+    </div>
+),
+    document.getElementById('root'))
