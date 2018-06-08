@@ -1,4 +1,5 @@
 ﻿import React from 'react'
+import axios from 'axios'
 
 
 
@@ -34,12 +35,16 @@ class Drawer extends React.Component {
 
         var edges = [];
         function printEdgesCount() {
-            edges.forEach(function (element) {
-                console.log(element);
-                //console.log(window.location.href + 'Draw/Create/?Color=' + 1 + '&Edges[0]=2');
-                location.href = window.location.href + 'Draw/Create/?Color={' + props.color + '}&Edges[0]=2';
-                //  location.href = window.location.href + 'Draw/Create/?Color=' + props.color + '&Edges[0]={1,1,2,3}';
-            });
+            let edgesString = [];
+            for (let i = 0; i < edges.length; i++) {
+                edgesString.push(JSON.stringify(edges[i]));
+            }
+            axios.post('/Draw/CreateShape',
+                {
+                    Color: props.color,
+                    Edges: edgesString
+        });
+
         }
 
         function draw(e) {

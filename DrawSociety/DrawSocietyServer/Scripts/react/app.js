@@ -4,5 +4,5 @@ import Drawer from './draw'
 
 
 ReactDOM.render(
-    <Drawer color="#f44253"/>,
-    document.getElementById('app1'))
+    <Drawer color="#41a854"/>,
+    document.getElementById('app2'))

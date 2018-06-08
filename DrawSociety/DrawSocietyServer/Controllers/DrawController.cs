@@ -14,20 +14,18 @@ namespace DrawSocietyServer.Controllers
     {
 
         // GET: Draw
-        public ActionResult Index()
+        public ActionResult Index(string board)
         {
+            if (board == null)
+            {
 
+            }
             return View();
         }
 
         //[HttpPost]
-        public ActionResult Create(string color,object[] edges)
+        public ActionResult CreateShape(string color,object[] edges)
         {
-            var shape = new Shape
-            {
-                Color = color,
-                Id = 0
-            };
             return RedirectToAction("index");
         }
 

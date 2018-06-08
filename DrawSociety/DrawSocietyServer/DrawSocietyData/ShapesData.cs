@@ -8,11 +8,27 @@ namespace DrawSocietyServer.DrawSocietyData
 {
     public static class ShapesData
     {
+        private static int maxShapeId;
+
+        private static void GetMaxShapeId()
+        {
+            if (maxShapeId > 0) return;
+            using (var dbReader = DrawSocietyDataLayer.Instance.FreeStyleSelect("Select Max(Id) From Shapes"))
+            {
+                if (dbReader.Read())
+                {
+                    maxShapeId = dbReader.GetInt32(0);
+                }
+
+                maxShapeId++;
+            }
+        }
         public static void AddShape(Shape shape,Edge[] edges)
         {
+            GetMaxShapeId();
             DrawSocietyDataLayer.Instance.InsertTable("Shapes","Id,Color,BoardUrl",
                 new[]{"@idParam","@colorParam","@boardParam"},
-                new object[]{shape.Id,shape.Color,shape.BoardUrl});
+                new object[]{maxShapeId,shape.Color,shape.BoardUrl});
             AddEdges(shape.Id,edges);
         }
 
