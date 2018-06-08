@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json.Serialization;
 
 namespace DrawSocietyServer.Models
 {
     public class Shape
     {
-        [Key]
-        public string Type { get; set; }
+        public int Id { get; set; }
+        public string Color { get; set; }
+        public string BoardUrl { get; set; }
     }
 }

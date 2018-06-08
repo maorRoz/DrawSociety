@@ -128,7 +128,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\react\app.js" />
-    <Content Include="Scripts\react\dist\bundle.js" />
     <Content Include="Scripts\react\draw.js" />
     <Content Include="Scripts\react\shapes.js" />
     <Content Include="Scripts\react\webpack.config.js" />
@@ -138,10 +137,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DrawController.cs" />
+    <Compile Include="DrawSocietyData\BoardData.cs" />
+    <Compile Include="DrawSocietyData\DrawSocietyDataLayer.cs" />
+    <Compile Include="DrawSocietyData\MemeberData.cs" />
+    <Compile Include="DrawSocietyData\ShapesData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DrawSocietyServerContext.cs" />
+    <Compile Include="Models\Edge.cs" />
     <Compile Include="Models\Shape.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,13 +153,13 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\react\package.json" />
     <Content Include="Views\Draw\Create.cshtml" />
     <Content Include="Views\Draw\Delete.cshtml" />
     <Content Include="Views\Draw\Details.cshtml" />
     <Content Include="Views\Draw\Edit.cshtml" />
     <Content Include="Views\Draw\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Scripts\react\package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -166,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\react\dist\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -182,11 +186,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59691</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:5000</IISUrl>
+          <IISUrl>http://localhost:3000</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://192.168.1.3</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

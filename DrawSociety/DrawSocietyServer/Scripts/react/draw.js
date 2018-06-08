@@ -21,6 +21,7 @@ class Drawer extends React.Component {
         document.addEventListener('mousemove', draw);
         document.addEventListener('mousedown', setPosition);
         document.addEventListener('mouseenter', setPosition);
+        document.addEventListener('mouseup', printEdgesCount);
 
         // last known position
         var pos = { x: 0, y: 0 };
@@ -29,8 +30,16 @@ class Drawer extends React.Component {
         function setPosition(e) {
             pos.x = e.clientX;
             pos.y = e.clientY;
-            console.log("X:"+pos.x);
-            console.log("Y:" + pos.y);
+        }
+
+        var edges = [];
+        function printEdgesCount() {
+            edges.forEach(function (element) {
+                console.log(element);
+                //console.log(window.location.href + 'Draw/Create/?Color=' + 1 + '&Edges[0]=2');
+                location.href = window.location.href + 'Draw/Create/?Color={' + props.color + '}&Edges[0]=2';
+                //  location.href = window.location.href + 'Draw/Create/?Color=' + props.color + '&Edges[0]={1,1,2,3}';
+            });
         }
 
         function draw(e) {
@@ -44,8 +53,20 @@ class Drawer extends React.Component {
             ctx.strokeStyle = props.color; // hex color of line
 
             ctx.moveTo(pos.x, pos.y); // from position
+            const edge = {
+                startX: pos.x,
+                startY: pos.y,
+                endX: 0,
+                endY: 0
+        }
             setPosition(e);
             ctx.lineTo(pos.x, pos.y); // to position
+
+            edge.endX = pos.x;
+            edge.endY = pos.y;
+
+            edges.push(edge);
+
 
             ctx.stroke(); // draw it!
 
