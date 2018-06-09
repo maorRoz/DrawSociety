@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Draw Board";
+}
+@if (ViewBag.isOwner)
+{
+    <a href="/Draw/DeleteLatestShape?board=@Model.Board&username=@Model.Address">
+        <img src="~/Icons/Undo.png" />
+    </a>
+
+    <a asp-controller="Draw" asp-action="WipeBoard"
+       asp-route-username="@Model.Address"
+       asp-route-board="@Model.Board"><img src="~/Icons/DeleteBoard.png" /></a>
+}
+
+    <h2>Lets Draw!</h2>
+    <canvas id="draw" board="@Model.Board" username="@Model.Address"></canvas>
+    <div id="app3"></div>
+
+@section scripts {
+    <script src="~/Scripts/react/dist/bundle.js"></script>
+}

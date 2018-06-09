@@ -84,5 +84,17 @@ namespace DrawSocietyServer.DrawSocietyData
             }
             return edges.ToArray();
         }
+
+        public static void RemoveBoard(string board)
+        {
+            DrawSocietyDataLayer.Instance.DeleteFromTable("Shapes","Board = '"+board+"'");
+        }
+
+        public static void RemoveLatestShape(string board)
+        {
+            DrawSocietyDataLayer.Instance.FreeStyleExecute
+                ("DELETE MAX(Id) FROM Shapes WHERE Board = '"+board+"'");
+        }
+
     }
 }

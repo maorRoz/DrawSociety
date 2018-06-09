@@ -5,7 +5,47 @@ using System.Web;
 
 namespace DrawSocietyServer.DrawSocietyData
 {
-    public class BoardData
+    public static class BoardData
     {
+        public static bool CheckOwnershipOrCreate(string board, string hostAddress)
+        {
+            if (IsBoardExist(board))
+            {
+                return IsOwner(board, hostAddress);
+            }
+
+            CreateBoard(board,hostAddress);
+            return true;
+        }
+
+        private static bool IsBoardExist(string board)
+        {
+            using (var dbReader =
+                DrawSocietyDataLayer.Instance.
+                    SelectFromTableWithCondition("Boards", "*", "Url = '" + board + "'"))
+            {
+                return dbReader.Read() && !dbReader.IsDBNull(0);
+            }
+        }
+
+        private static bool IsOwner(string board, string hostAddress)
+        {
+            if (hostAddress == "Admin")
+            {
+                return true;
+            }
+            using (var dbReader =
+                DrawSocietyDataLayer.Instance.SelectFromTableWithCondition("Boards", "*",
+                    "Url = '" + board + "' AND HostAddress = '" + hostAddress + "'"))
+            {
+                return dbReader.Read() && !dbReader.IsDBNull(0);
+            }
+        }
+
+        private static void CreateBoard(string board,string hostAddress)
+        {
+            DrawSocietyDataLayer.Instance.InsertTable("Boards","Url,HostAddress",
+                new []{"@urlParam,@addressParam"},new object[]{board,hostAddress});
+        }
     }
 }

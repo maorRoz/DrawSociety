@@ -3,11 +3,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Lets Draw!</h2>
-<canvas id="draw" board="@Model.Board"></canvas>
-<div id="app3" ></div>
-
-
-@section scripts {
-    <script src="~/Scripts/react/dist/bundle.js"></script>
+<h2>Enter Your Name!</h2>
+@using (Html.BeginForm("DrawBoard", "Draw", new { Model.Board }))
+{
+    <label for="user-name-entry">Username:</label>
+    <input type="text" class="form-control" id="user-name-entry" name="username" />
+    <input type="submit" class="btn btn-primary">
 }

@@ -16,43 +16,55 @@ namespace DrawSocietyServer.Controllers
     {
 
         // GET: Draw
-        public ActionResult Index(string board)
+        public ActionResult Index(string board,string username)
         {
             if (board == null)
             {
-                return RedirectToAction("index",new {board = "home"});
+                return RedirectToAction("index",new {board = "home",username});
             }
-            return View(new User{Board = board});
+
+            if (username != null)
+            {
+                return RedirectToAction("DrawBoard", new {board, username});
+            }
+            return View(new User { Board = board});
+        }
+
+        public ActionResult DrawBoard(string board,string username)
+        {
+            if (username == null || board == null)
+            {
+                return RedirectToAction("Index", new {board,username});
+            }
+
+            ViewBag.isOwner = BoardData.CheckOwnershipOrCreate(board,username);
+
+            return View(new User { Board = board, Address = username });
         }
 
         [HttpPost]
-        public ActionResult CreateShape(string color,string board,object[] edges)
+        public ActionResult CreateShape(string color,string board,string username,object[] edges)
         {
             if (edges != null)
             {
                 ShapesData.AddShape(new Shape {Color = color, Board = board}, Edge.ParseJsonArray(edges));
             }
 
-            return RedirectToAction("index");
+            return RedirectToAction("DrawBoard",new{board,username});
         }
 
-        // GET: Draw/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteLatestShape(string board,string username)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            return View();
+            ShapesData.RemoveLatestShape(board);
+            return RedirectToAction("DrawBoard", new { board, username });
         }
 
-        // POST: Draw/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult WipeBoard(string board,string username)
         {
-            return RedirectToAction("Index");
+            ShapesData.RemoveBoard(board);
+            return RedirectToAction("DrawBoard", new { board, username });
         }
+
+
     }
 }
