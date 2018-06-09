@@ -12,24 +12,26 @@ namespace DrawSocietyServer.DrawSocietyData
 
         private static void GetMaxShapeId()
         {
-            if (maxShapeId > 0) return;
-            using (var dbReader = DrawSocietyDataLayer.Instance.FreeStyleSelect("Select Max(Id) From Shapes"))
+            if (maxShapeId == 0)
             {
-                if (dbReader.Read())
+                using (var dbReader = DrawSocietyDataLayer.Instance.FreeStyleSelect("Select Max(Id) From Shapes"))
                 {
-                    maxShapeId = dbReader.GetInt32(0);
+                    if (dbReader.Read() && !dbReader.IsDBNull(0))
+                    {
+                        maxShapeId = dbReader.GetInt32(0);
+                    }
                 }
-
-                maxShapeId++;
             }
+
+            maxShapeId++;
         }
         public static void AddShape(Shape shape,Edge[] edges)
         {
             GetMaxShapeId();
-            DrawSocietyDataLayer.Instance.InsertTable("Shapes","Id,Color,BoardUrl",
+            DrawSocietyDataLayer.Instance.InsertTable("Shapes","Id,Color,Board",
                 new[]{"@idParam","@colorParam","@boardParam"},
-                new object[]{maxShapeId,shape.Color,shape.BoardUrl});
-            AddEdges(shape.Id,edges);
+                new object[]{maxShapeId,shape.Color,shape.Board});
+            AddEdges(maxShapeId,edges);
         }
 
         public static Shape[] GetShapes()
@@ -43,7 +45,7 @@ namespace DrawSocietyServer.DrawSocietyData
                     {
                         Id = dbReader.GetInt32(0),
                         Color = dbReader.GetString(1),
-                        BoardUrl = dbReader.GetString(2)
+                        Board = dbReader.GetString(2)
                     };
                     shapes.Add(shape);
                 }
@@ -57,7 +59,7 @@ namespace DrawSocietyServer.DrawSocietyData
             {
                 DrawSocietyDataLayer.Instance.InsertTable("Edges",
                     "ShapeId,StartX,StartY,EndX,EndY",
-                    new[] {"@idParam", "@startXParam", "@startYParam","@endXParam","endYParam"},
+                    new[] {"@idParam", "@startXParam", "@startYParam","@endXParam","@endYParam"},
                     new object[] { shapeId, edge.StartX,edge.StartX,edge.EndX,edge.EndY});
             }
         }

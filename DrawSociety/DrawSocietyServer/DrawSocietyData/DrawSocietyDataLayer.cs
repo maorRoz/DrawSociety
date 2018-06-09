@@ -23,6 +23,7 @@ namespace DrawSocietyServer.DrawSocietyData
                 MultipleActiveResultSets = true
             };
             _dbConnection = new SqlConnection(localDbPath.ConnectionString);
+            _dbConnection.Open();
         }
 
         public void InsertTable(string table, string tableColumns, string[] valuesNames, object[] values)

@@ -11,6 +11,6 @@ namespace DrawSocietyServer.Models
     {
         public int Id { get; set; }
         public string Color { get; set; }
-        public string BoardUrl { get; set; }
+        public string Board { get; set; }
     }
 }
