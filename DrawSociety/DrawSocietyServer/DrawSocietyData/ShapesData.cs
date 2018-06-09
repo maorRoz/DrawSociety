@@ -34,10 +34,10 @@ namespace DrawSocietyServer.DrawSocietyData
             AddEdges(maxShapeId,edges);
         }
 
-        public static Shape[] GetShapes()
+        public static Shape[] GetShapes(string board)
         {
             var shapes = new List<Shape>();
-            using (var dbReader = DrawSocietyDataLayer.Instance.SelectFromTable("Shapes", "*"))
+            using (var dbReader = DrawSocietyDataLayer.Instance.SelectFromTableWithCondition("Shapes", "*","Board = '"+board+"'"))
             {
                 while (dbReader.Read())
                 {
@@ -60,14 +60,14 @@ namespace DrawSocietyServer.DrawSocietyData
                 DrawSocietyDataLayer.Instance.InsertTable("Edges",
                     "ShapeId,StartX,StartY,EndX,EndY",
                     new[] {"@idParam", "@startXParam", "@startYParam","@endXParam","@endYParam"},
-                    new object[] { shapeId, edge.StartX,edge.StartX,edge.EndX,edge.EndY});
+                    new object[] { shapeId, edge.StartX,edge.StartY,edge.EndX,edge.EndY});
             }
         }
 
-        public static Edge[] GetShapeEdges(Shape shape)
+        public static Edge[] GetShapeEdges(int shapeId)
         {
             var edges = new List<Edge>();
-            using (var dbReader = DrawSocietyDataLayer.Instance.SelectFromTableWithCondition("Edges", "*","ShapeId = "+shape.Id))
+            using (var dbReader = DrawSocietyDataLayer.Instance.SelectFromTableWithCondition("Edges", "*","ShapeId = "+shapeId))
             {
                 while (dbReader.Read())
                 {

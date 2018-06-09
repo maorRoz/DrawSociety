@@ -128,7 +128,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\react\app.js" />
+    <Content Include="Scripts\react\dist\bundle.js" />
     <Content Include="Scripts\react\draw.js" />
+    <Content Include="Scripts\react\historyDrawer.js" />
     <Content Include="Scripts\react\shapes.js" />
     <Content Include="Scripts\react\webpack.config.js" />
     <Content Include="Web.config" />
@@ -136,6 +138,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DrawApiController.cs" />
     <Compile Include="Controllers\DrawController.cs" />
     <Compile Include="DrawSocietyData\BoardData.cs" />
     <Compile Include="DrawSocietyData\DrawSocietyDataLayer.cs" />
@@ -158,7 +161,6 @@
     <Content Include="Scripts\react\package.json" />
     <Content Include="Views\Draw\Create.cshtml" />
     <Content Include="Views\Draw\Delete.cshtml" />
-    <Content Include="Views\Draw\Details.cshtml" />
     <Content Include="Views\Draw\Edit.cshtml" />
     <Content Include="Views\Draw\Index.cshtml" />
     <None Include="Web.Debug.config">
@@ -170,7 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\react\dist\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -187,7 +188,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59691</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3000</IISUrl>
+          <IISUrl>http://localhost:3001</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://192.168.1.3</CustomServerUrl>

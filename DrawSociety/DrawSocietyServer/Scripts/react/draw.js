@@ -59,15 +59,18 @@ class Drawer extends React.Component {
             ctx.strokeStyle = props.color; // hex color of line
 
             ctx.moveTo(pos.x, pos.y); // from position
+            console.log("start x:" + pos.x);
+            console.log("start y:" + pos.y);
             const edge = {
                 startX: pos.x,
                 startY: pos.y,
                 endX: 0,
                 endY: 0
-        }
+            }
             setPosition(e);
             ctx.lineTo(pos.x, pos.y); // to position
-
+            console.log("end x:" + pos.x);
+            console.log("end y:" + pos.y);
             edge.endX = pos.x;
             edge.endY = pos.y;
 
