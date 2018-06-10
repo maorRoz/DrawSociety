@@ -30,6 +30,16 @@ namespace DrawSocietyServer.Controllers
             return View(new User { Board = board});
         }
 
+        public ActionResult SubmitMember(string board, string username)
+        {
+            if (username == null || board == null)
+            {
+                return RedirectToAction("Index", new { board, username });
+            }
+            MemberData.AddMemberIfNotExist(username);
+            return RedirectToAction("DrawBoard", new { board, username });
+        }
+
         public ActionResult DrawBoard(string board,string username)
         {
             if (username == null || board == null)
@@ -51,6 +61,24 @@ namespace DrawSocietyServer.Controllers
             }
 
             return RedirectToAction("DrawBoard",new{board,username});
+        }
+
+        public ActionResult AdminControl(string username)
+        {
+            if (username != "Admin")
+            {
+                return RedirectToAction("Index", new {username});
+            }
+
+            ViewBag.Items = BoardData.GetAllBoards();
+            return View(new User { Address = username });
+
+        }
+
+        public ActionResult SubmitNewMaxShape(int maxSlotEntry)
+        {
+            MemberData.RefreshMembersShapesSlots(maxSlotEntry);
+            return RedirectToAction("AdminControl", new {username = "Admin"});
         }
 
         public ActionResult DeleteLatestShape(string board,string username)

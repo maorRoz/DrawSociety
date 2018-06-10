@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Admin Control";
+}
+
+<h2>Admin Control Board</h2>
+@using (Html.BeginForm("SubmitNewMaxShape", "Draw"))
+{
+    <label for="max-shape-entry">Enter the wanted max shape:</label>
+    <input type="text" class="form-control" id="max-shape-entry" name="maxSlotEntry"/>
+    <input type="submit" class="btn btn-primary">
+}
+<hr/>
+<table class="table">
+        <thead>
+        <tr>
+            <th>Board Name/Url</th>
+            <th>Host </th>
+        </tr>
+        </thead>
+        @foreach (var item in ViewBag.items)
+        {
+            <tr>
+                <td>@item.Url</td>
+                <td>@item.HostAddress</td>
+            </tr>
+        }
+    </table>

@@ -17,6 +17,18 @@ namespace DrawSocietyServer.Controllers
             return Ok(shapes);
         }
 
+        public IHttpActionResult GetMaxShape(string username)
+        {
+            var maxShape = MemberData.GetMemberShapeSlot(username);
+            return Ok(maxShape);
+        }
+
+        public IHttpActionResult PostDecreaseMaxShape(string username)
+        {
+            MemberData.DecreaseMemberShapeSlot(username);
+            return Ok();
+        }
+
         public IHttpActionResult GetShapeEdges(int shapeId)
         {
             var edges = ShapesData.GetShapeEdges(shapeId);

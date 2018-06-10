@@ -21,7 +21,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                </ul>
+                    @if (Model.Address == "Admin")
+                    {
+                        <li> @Html.ActionLink("AdminControl", "AdminControl", "Draw", new {username = "Admin"}, new {@class = "navbar-brand"}) </li>
+
+                    }
+                    </ul>
             </div>
         </div>
     </div>

@@ -144,11 +144,12 @@
     <Compile Include="Controllers\DrawController.cs" />
     <Compile Include="DrawSocietyData\BoardData.cs" />
     <Compile Include="DrawSocietyData\DrawSocietyDataLayer.cs" />
-    <Compile Include="DrawSocietyData\MemeberData.cs" />
+    <Compile Include="DrawSocietyData\MemberData.cs" />
     <Compile Include="DrawSocietyData\ShapesData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Edge.cs" />
     <Compile Include="Models\Shape.cs" />
     <Compile Include="Models\User.cs" />
@@ -163,6 +164,7 @@
     <Content Include="Scripts\react\package.json" />
     <Content Include="Views\Draw\Index.cshtml" />
     <Content Include="Views\Draw\DrawBoard.cshtml" />
+    <Content Include="Views\Draw\AdminControl.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

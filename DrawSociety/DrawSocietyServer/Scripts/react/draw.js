@@ -63,12 +63,42 @@ class Drawer extends React.Component {
 
         var pos = { x: 0, y: 0 };
         var hasBeenDrawed = false;
+        var canDraw = true;
+        setLeftShapes();
+        var edges = [];
+ 
         function setPosition(e) {
             pos.x = e.clientX;
             pos.y = e.clientY;
         }
 
-        var edges = [];
+        function decreaseLeftShapes() {
+            axios.post('http://' +
+                window.location.host +
+                '/api/DrawApi/PostDecreaseMaxShape?username=' +
+                document.getElementById("draw").getAttribute("username"))
+                .then(function () {
+                setLeftShapes();
+            });
+        }
+
+        function setLeftShapes() {
+            axios.get('http://' +
+                    window.location.host +
+                    '/api/DrawApi/GetMaxShape?username=' +
+                    document.getElementById("draw").getAttribute("username"))
+                .then(function (response) {
+                    let leftShapePrint = response.data;
+                    if (response.data === 0) {
+                        canDraw = false;
+                    }
+                    else if (response.data < 0) {
+                        leftShapePrint = "infinite";
+                    }
+                    $('#paint-count').html("You can paint " + leftShapePrint + " more shapes");
+                });
+        }
+
         function printEdgesCount() {
             if (!hasBeenDrawed) {
                 return;
@@ -84,17 +114,17 @@ class Drawer extends React.Component {
                     Username: document.getElementById("draw").getAttribute("username"),
                     Edges: edgesString
                 }).then(function() {
-                hasBeenDrawed = false;
-            })
+                    hasBeenDrawed = false;
+                    decreaseLeftShapes();
+            });
 
         }
 
         function draw(e) {
 
-            if (e.buttons !== 1) return; 
+            if (e.buttons !== 1 || !canDraw) return; 
 
             ctx.beginPath();
-            console.log('hello!');
             ctx.lineWidth = 10; 
             ctx.lineCap = 'round';
             ctx.strokeStyle = choosenColor;

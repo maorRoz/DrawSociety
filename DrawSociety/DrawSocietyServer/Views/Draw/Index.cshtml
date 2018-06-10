@@ -4,7 +4,7 @@
 }
 
 <h2>Enter Your Name!</h2>
-@using (Html.BeginForm("DrawBoard", "Draw", new { Model.Board }))
+@using (Html.BeginForm("SubmitMember", "Draw", new { Model.Board }))
 {
     <label for="user-name-entry">Username:</label>
     <input type="text" class="form-control" id="user-name-entry" name="username" />

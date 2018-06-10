@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -36,7 +37,17 @@ namespace DrawSocietyServer.DrawSocietyData
                 commandDb.Parameters.AddWithValue(valuesNames[i], values[i]);
             }
 
-            commandDb.ExecuteNonQuery();
+            try
+            {
+                commandDb.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+                if (table != "Edges")
+                {
+                    throw;
+                }
+            }
 
         }
 
