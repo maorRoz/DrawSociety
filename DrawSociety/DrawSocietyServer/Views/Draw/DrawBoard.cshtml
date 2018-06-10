@@ -4,17 +4,14 @@
 }
 @if (ViewBag.isOwner)
 {
-    <a href="/Draw/DeleteLatestShape?board=@Model.Board&username=@Model.Address">
-        <img src="~/Icons/Undo.png" />
-    </a>
+    <a href="/Draw/DeleteLatestShape?board=@Model.Board&username=@Model.Address"><img src="~/Icons/Undo.png" /></a>
 
-    <a href="/Draw/WipeBoard?board=@Model.Board&username=@Model.Address">
-        <img src="~/Icons/DeleteBoard.png" />
-    </a>
+    <a href="/Draw/WipeBoard?board=@Model.Board&username=@Model.Address"><img src="~/Icons/DeleteBoard.png" /></a>
 }
 <br/>
 <div id="paint-count"></div>
 <h2>Lets Draw!</h2>
+<hr/>
     <canvas id="draw" board="@Model.Board" username="@Model.Address"></canvas>
     <div id="app3"></div>
 

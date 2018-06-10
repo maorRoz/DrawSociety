@@ -18,6 +18,8 @@ namespace DrawSocietyServer.Controllers
         // GET: Draw
         public ActionResult Index(string board,string username)
         {
+            MemberData.SetIntervalMaxShape();
+            MemberData.UpdateMaxShapeIfNeeded();
             if (board == null)
             {
                 return RedirectToAction("index",new {board = "home",username});
@@ -77,7 +79,7 @@ namespace DrawSocietyServer.Controllers
 
         public ActionResult SubmitNewMaxShape(int maxSlotEntry)
         {
-            MemberData.RefreshMembersShapesSlots(maxSlotEntry);
+            MemberData.UpdateMembersShapesSlots(maxSlotEntry);
             return RedirectToAction("AdminControl", new {username = "Admin"});
         }
 

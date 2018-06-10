@@ -2,12 +2,46 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Timers;
 using System.Web;
 
 namespace DrawSocietyServer.DrawSocietyData
 {
     public static class MemberData
     {
+        private static Timer intervalMaxShape;
+
+        public static void SetIntervalMaxShape()
+        {
+            if (intervalMaxShape != null){ return;}
+            intervalMaxShape = new Timer(1000 * 60 * 60 * 24);
+            intervalMaxShape.Elapsed += CheckUpdateMaxShape;
+            intervalMaxShape.Enabled = true;
+        }
+
+        private static void CheckUpdateMaxShape(object source, ElapsedEventArgs e)
+        {
+            UpdateMaxShapeIfNeeded();
+        }
+
+        public static void UpdateMaxShapeIfNeeded()
+        {
+            if (DateTime.Now > LastSubmittedMaxShapeDate())
+            {
+                RefreshMemberShapesSlots();
+            }
+        }
+
+        private static DateTime LastSubmittedMaxShapeDate()
+        {
+            using (var dbReader = DrawSocietyDataLayer.Instance.SelectFromTable("MaxShape", "DateSubmitted"))
+            {
+                dbReader.Read();
+                return dbReader.GetDateTime(0);
+            }
+
+        }
+
         public static void AddMemberIfNotExist(string address)
         {
             if (IsMemberExist(address))
@@ -28,14 +62,28 @@ namespace DrawSocietyServer.DrawSocietyData
             }
         }
 
-        public static void RefreshMembersShapesSlots(int maxSlot)
+        public static void RefreshMemberShapesSlots()
         {
-            RefreshGlobalMaxShape(maxSlot);
+            RefreshGlobalMaxShape();
+            DrawSocietyDataLayer.Instance.FreeStyleExecute
+                ("Update Member SET RestrictedShapes = " +
+                 "(SELECT MaxShapeSlot FROM MaxShape) WHERE Address != 'Admin'");
+        }
+
+        private static void RefreshGlobalMaxShape()
+        {
+            DrawSocietyDataLayer.Instance.UpdateTable("MaxShape", null, new[] { "DateSubmitted" },
+                new[] { "@dateParam" }, new object[] { DateTime.Now });
+        }
+
+        public static void UpdateMembersShapesSlots(int maxSlot)
+        {
+            UpdateGlobalMaxShape(maxSlot);
             DrawSocietyDataLayer.Instance.UpdateTable("Member","Address != 'Admin'",new[]{"RestrictedShapes"},
                 new []{"@restrictedParam"},new object[]{maxSlot});
         }
 
-        private static void RefreshGlobalMaxShape(int maxSlot)
+        private static void UpdateGlobalMaxShape(int maxSlot)
         {
             DrawSocietyDataLayer.Instance.UpdateTable("MaxShape",null, new[] { "MaxShapeSlot","DateSubmitted" },
                 new[] { "@maxParam","@dateParam" }, new object[] { maxSlot,DateTime.Now });
