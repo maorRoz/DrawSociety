@@ -93,7 +93,7 @@ namespace DrawSocietyServer.DrawSocietyData
         public static void RemoveLatestShape(string board)
         {
             DrawSocietyDataLayer.Instance.FreeStyleExecute
-                ("DELETE MAX(Id) FROM Shapes WHERE Board = '"+board+"'");
+                ("DELETE FROM Shapes WHERE Id = (SELECT MAX(Id) FROM Shapes WHERE Board = '"+board+"')");
         }
 
     }

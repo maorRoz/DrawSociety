@@ -62,7 +62,7 @@ class Drawer extends React.Component {
         document.addEventListener('mouseup', printEdgesCount);
 
         var pos = { x: 0, y: 0 };
-
+        var hasBeenDrawed = false;
         function setPosition(e) {
             pos.x = e.clientX;
             pos.y = e.clientY;
@@ -70,6 +70,9 @@ class Drawer extends React.Component {
 
         var edges = [];
         function printEdgesCount() {
+            if (!hasBeenDrawed) {
+                return;
+            }
             let edgesString = [];
             for (let i = 0; i < edges.length; i++) {
                 edgesString.push(JSON.stringify(edges[i]));
@@ -80,7 +83,9 @@ class Drawer extends React.Component {
                     Board: document.getElementById("draw").getAttribute("board"),
                     Username: document.getElementById("draw").getAttribute("username"),
                     Edges: edgesString
-        });
+                }).then(function() {
+                hasBeenDrawed = false;
+            })
 
         }
 
@@ -88,8 +93,8 @@ class Drawer extends React.Component {
 
             if (e.buttons !== 1) return; 
 
-            ctx.beginPath(); 
-
+            ctx.beginPath();
+            console.log('hello!');
             ctx.lineWidth = 10; 
             ctx.lineCap = 'round';
             ctx.strokeStyle = choosenColor;
@@ -109,8 +114,8 @@ class Drawer extends React.Component {
             edges.push(edge);
 
 
-            ctx.stroke(); 
-
+            ctx.stroke();
+            hasBeenDrawed = true;
         } 
     }
     render() {

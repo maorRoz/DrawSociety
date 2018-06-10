@@ -8,9 +8,9 @@
         <img src="~/Icons/Undo.png" />
     </a>
 
-    <a asp-controller="Draw" asp-action="WipeBoard"
-       asp-route-username="@Model.Address"
-       asp-route-board="@Model.Board"><img src="~/Icons/DeleteBoard.png" /></a>
+    <a href="/Draw/WipeBoard?board=@Model.Board&username=@Model.Address">
+        <img src="~/Icons/DeleteBoard.png" />
+    </a>
 }
 
     <h2>Lets Draw!</h2>
